@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connection Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .pass { border-left: 4px solid #22c55e; }
+        .fail { border-left: 4px solid #ef4444; }
+        .pending { border-left: 4px solid #eab308; }
+        h1 { color: #333; }
+        h2 { color: #666; font-size: 18px; margin: 0 0 10px 0; }
+        .info { color: #666; font-size: 14px; }
+        code {
+            background: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 10px 0;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        #logs {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 13px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+        .log-entry {
+            margin: 5px 0;
+            padding: 3px 0;
+        }
+        .log-error { color: #fca5a5; }
+        .log-success { color: #86efac; }
+        .log-info { color: #93c5fd; }
+    </style>
+</head>
+<body>
+    <h1>🔍 NorthStar Dev Server - Connection Test</h1>
+    <p class="info">This page tests if your browser can properly connect to the dev server.</p>
+
+    <div class="test pending" id="test-html">
+        <h2>✓ HTML Load Test</h2>
+        <p>Status: <strong>PASSED</strong> - You're seeing this page!</p>
+    </div>
+
+    <div class="test pending" id="test-js">
+        <h2>⏳ JavaScript Execution Test</h2>
+        <p>Status: <span id="js-status">Testing...</span></p>
+    </div>
+
+    <div class="test pending" id="test-fetch">
+        <h2>⏳ API Fetch Test</h2>
+        <p>Status: <span id="fetch-status">Not tested yet</span></p>
+        <button onclick="testFetch()">Run Fetch Test</button>
+    </div>
+
+    <div class="test pending" id="test-ws">
+        <h2>⏳ WebSocket Test</h2>
+        <p>Status: <span id="ws-status">Not tested yet</span></p>
+        <button onclick="testWebSocket()">Test WebSocket Connection</button>
+    </div>
+
+    <div class="test" id="test-info">
+        <h2>📊 Connection Info</h2>
+        <p><strong>Your Location:</strong> <code id="user-url">-</code></p>
+        <p><strong>Protocol:</strong> <code id="protocol">-</code></p>
+        <p><strong>Host:</strong> <code id="host">-</code></p>
+        <p><strong>User Agent:</strong> <code id="user-agent">-</code></p>
+    </div>
+
+    <h2>📝 Console Logs</h2>
+    <div id="logs"></div>
+
+    <script>
+        // Log function
+        function log(message, type = 'info') {
+            const logsDiv = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.className = `log-entry log-${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logsDiv.appendChild(entry);
+            logsDiv.scrollTop = logsDiv.scrollHeight;
+            console.log(message);
+        }
+
+        // Test 1: JavaScript
+        try {
+            document.getElementById('js-status').textContent = 'PASSED';
+            document.getElementById('test-js').className = 'test pass';
+            log('JavaScript execution: PASSED', 'success');
+        } catch (e) {
+            document.getElementById('js-status').textContent = 'FAILED: ' + e.message;
+            document.getElementById('test-js').className = 'test fail';
+            log('JavaScript execution: FAILED - ' + e.message, 'error');
+        }
+
+        // Display connection info
+        document.getElementById('user-url').textContent = window.location.href;
+        document.getElementById('protocol').textContent = window.location.protocol;
+        document.getElementById('host').textContent = window.location.host;
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+
+        log('Page loaded successfully', 'success');
+        log('Testing from: ' + window.location.href, 'info');
+
+        // Test 2: Fetch API
+        async function testFetch() {
+            const statusEl = document.getElementById('fetch-status');
+            const testDiv = document.getElementById('test-fetch');
+            
+            try {
+                log('Starting fetch test...', 'info');
+                statusEl.textContent = 'Testing...';
+                testDiv.className = 'test pending';
+                
+                const response = await fetch('/vite.config.ts');
+                
+                if (response.ok) {
+                    statusEl.textContent = 'PASSED - Status: ' + response.status;
+                    testDiv.className = 'test pass';
+                    log('Fetch test: PASSED (HTTP ' + response.status + ')', 'success');
+                } else {
+                    statusEl.textContent = 'FAILED - Status: ' + response.status;
+                    testDiv.className = 'test fail';
+                    log('Fetch test: FAILED (HTTP ' + response.status + ')', 'error');
+                }
+            } catch (e) {
+                statusEl.textContent = 'FAILED - ' + e.message;
+                testDiv.className = 'test fail';
+                log('Fetch test: FAILED - ' + e.message, 'error');
+            }
+        }
+
+        // Test 3: WebSocket
+        function testWebSocket() {
+            const statusEl = document.getElementById('ws-status');
+            const testDiv = document.getElementById('test-ws');
+            
+            try {
+                log('Starting WebSocket test...', 'info');
+                statusEl.textContent = 'Connecting...';
+                testDiv.className = 'test pending';
+                
+                const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                const wsUrl = `${protocol}//${window.location.host}`;
+                
+                log('WebSocket URL: ' + wsUrl, 'info');
+                
+                const ws = new WebSocket(wsUrl);
+                
+                ws.onopen = () => {
+                    statusEl.textContent = 'PASSED - Connection established';
+                    testDiv.className = 'test pass';
+                    log('WebSocket: PASSED - Connected successfully', 'success');
+                    ws.close();
+                };
+                
+                ws.onerror = (e) => {
+                    statusEl.textContent = 'FAILED - Connection error';
+                    testDiv.className = 'test fail';
+                    log('WebSocket: FAILED - Connection error', 'error');
+                };
+                
+                ws.onclose = () => {
+                    log('WebSocket: Connection closed', 'info');
+                };
+                
+                // Timeout after 5 seconds
+                setTimeout(() => {
+                    if (ws.readyState !== WebSocket.OPEN) {
+                        statusEl.textContent = 'FAILED - Connection timeout';
+                        testDiv.className = 'test fail';
+                        log('WebSocket: FAILED - Connection timeout', 'error');
+                        ws.close();
+                    }
+                }, 5000);
+                
+            } catch (e) {
+                statusEl.textContent = 'FAILED - ' + e.message;
+                testDiv.className = 'test fail';
+                log('WebSocket: FAILED - ' + e.message, 'error');
+            }
+        }
+
+        // Auto-run fetch test
+        setTimeout(() => {
+            log('Running automatic fetch test...', 'info');
+            testFetch();
+        }, 500);
+    </script>
+</body>
+</html>
