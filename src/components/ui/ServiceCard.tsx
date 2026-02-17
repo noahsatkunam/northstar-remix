@@ -30,13 +30,13 @@ const ServiceCard = React.forwardRef<HTMLDivElement, ServiceCardProps>(
       <div
         ref={ref}
         className={cn(
-          "group border border-border bg-card p-6 shadow-sm transition-all duration-DEFAULT rounded-xl",
-          "hover:-translate-y-1 hover:border-primary/50 hover:shadow-lg",
+          "group border border-border/50 bg-card p-6 transition-all duration-300 rounded-2xl",
+          "hover:border-primary/30",
           className
         )}
         {...props}
       >
-        <div className="flex h-12 w-12 items-center justify-center bg-primary/10 transition-transform duration-fast group-hover:scale-110">
+        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/20">
           <Icon className="h-6 w-6 text-primary" />
         </div>
         <h3 className="mt-5 text-lg font-semibold text-card-foreground">

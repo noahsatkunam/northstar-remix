@@ -123,28 +123,30 @@ export default function BlogPost() {
       </Helmet>
 
       <article>
-        <header className="relative overflow-hidden hero-gradient-bg py-20 md:py-28">
-          <div className="absolute inset-0 grain-texture opacity-20 pointer-events-none" />
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent animate-gradient-shift bg-[length:200%_200%]" aria-hidden="true" />
+        <header className="relative overflow-hidden py-20 md:py-28 pt-32 md:pt-36">
+          <div className="absolute inset-0">
+            <div className="absolute inset-0 dot-pattern opacity-30" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50vw] h-[50vw] bg-primary/[0.05] rounded-full blur-[120px]" />
+          </div>
           <div className="container relative z-10 mx-auto px-4 lg:px-8">
             <div className="mx-auto max-w-4xl">
-              <Link to={`/blog?category=${encodeURIComponent(post.category)}`} className="inline-block rounded-full bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-colors">
+              <Link to={`/blog?category=${encodeURIComponent(post.category)}`} className="inline-block rounded-md bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary hover:bg-primary/20 transition-colors">
                 {post.category}
               </Link>
-              <h1 className="mt-8 text-3xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">{post.title}</h1>
-              <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-white/10 pt-8">
+              <h1 className="mt-8 text-3xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">{post.title}</h1>
+              <div className="mt-8 flex flex-wrap items-center gap-6 border-t border-border/30 pt-8">
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white font-bold">
+                  <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
                     {post.author?.charAt(0) || "N"}
                   </div>
                   <div>
-                    <span className="block text-sm font-bold text-white">{post.author}</span>
-                    <span className="block text-xs text-gray-300">
+                    <span className="block text-sm font-bold">{post.author}</span>
+                    <span className="block text-xs text-muted-foreground">
                       {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : ""}
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-300">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Clock className="h-4 w-4" /> {readTime}
                 </div>
               </div>
@@ -310,13 +312,14 @@ export default function BlogPost() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-24 md:py-32 overflow-hidden hero-gradient-bg text-center">
-        <div className="absolute inset-0 grain-texture opacity-20 pointer-events-none" />
+      <section className="relative py-24 md:py-32 overflow-hidden text-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-card to-accent/5" />
+        <div className="absolute inset-0 dot-pattern opacity-30" />
         <div className="container relative z-10 mx-auto px-4 lg:px-8">
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl mb-6">Need Help With Your Technology Strategy?</h2>
-            <p className="text-xl text-gray-300 mb-10">Our experts can help you assess your current posture and build a roadmap for success.</p>
-            <Button size="lg" className="h-14 px-10 text-lg bg-white text-black hover:bg-white/90 shadow-2xl hover:shadow-white/20 transition-all duration-300 hover:-translate-y-1" onClick={openModal}>
+            <h2 className="text-3xl font-bold tracking-tight md:text-5xl mb-6">Need Help With Your Technology Strategy?</h2>
+            <p className="text-lg text-muted-foreground mb-10">Our experts can help you assess your current posture and build a roadmap for success.</p>
+            <Button size="lg" className="h-14 px-8 text-base rounded-xl bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all" onClick={openModal}>
               Talk to an Expert
             </Button>
           </div>

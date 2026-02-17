@@ -19,20 +19,22 @@ export default function PrivacyPolicy() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden hero-gradient-bg py-20 md:py-24">
-        <div className="absolute inset-0 grain-texture opacity-20 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent animate-gradient-shift bg-[length:200%_200%]" aria-hidden="true" />
+      <section className="relative overflow-hidden py-20 md:py-24 pt-32 md:pt-36">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 dot-pattern opacity-30" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50vw] h-[40vw] bg-primary/[0.04] rounded-full blur-[120px]" />
+        </div>
         <div className="container relative z-10 mx-auto px-4 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl animate-fade-in-up" style={{ animationDelay: "0ms", animationFillMode: "both" }}>
+            <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl mb-4">
               Privacy Policy
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-300 animate-fade-in-up" style={{ animationDelay: "100ms", animationFillMode: "both" }}>
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               How we collect, use, and protect your information.
             </p>
           </div>
         </div>
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce-subtle opacity-50">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-0">
           <ChevronDown className="h-8 w-8 text-white" />
         </div>
       </section>

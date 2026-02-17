@@ -589,27 +589,21 @@ export default function SecurityCheck() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden hero-gradient-bg py-20 md:py-28 lg:py-32">
-        <div className="absolute inset-0 grain-texture opacity-20 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent animate-gradient-shift bg-[length:200%_200%]" aria-hidden="true" />
-        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-          <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-primary/10 blur-3xl animate-float" />
-          <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-accent/10 blur-3xl animate-float" style={{ animationDelay: '3s' }} />
+      <section className="relative overflow-hidden py-20 md:py-28 pt-32 md:pt-36">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 dot-pattern opacity-30" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50vw] h-[50vw] bg-primary/[0.05] rounded-full blur-[120px]" />
         </div>
 
         <div className="container relative z-10 mx-auto px-4 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl animate-fade-in-up" style={{ animationDelay: '0ms', animationFillMode: 'both' }}>
+            <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl mb-6">
               Complete <span className="text-gradient">Security Check</span> in Minutes
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-300 md:text-xl animate-fade-in-up leading-relaxed" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground md:text-xl leading-relaxed">
               Get a comprehensive security assessment covering email authentication, infrastructure vulnerabilities, and dark web exposure.
             </p>
           </div>
-        </div>
-
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce-subtle opacity-50">
-          <ChevronDown className="h-8 w-8 text-white" />
         </div>
       </section>
 

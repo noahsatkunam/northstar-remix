@@ -8,20 +8,19 @@ interface PageHeroProps {
 
 export function PageHero({ title, description, children }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden bg-secondary py-16 md:py-24">
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,hsl(var(--primary)/0.3),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,hsl(var(--accent)/0.2),transparent_50%)]" />
+    <section className="relative overflow-hidden py-20 md:py-28 pt-32 md:pt-36">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 dot-pattern opacity-30" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50vw] h-[50vw] bg-primary/[0.05] rounded-full blur-[120px]" />
       </div>
-      
-      <div className="container relative mx-auto px-4 lg:px-8">
+
+      <div className="container relative z-10 mx-auto px-4 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl">
+          <h1 className="text-3xl font-bold tracking-tight md:text-5xl lg:text-6xl">
             {title}
           </h1>
           {description && (
-            <p className="mt-4 text-lg text-white/80">
+            <p className="mt-5 text-lg text-muted-foreground leading-relaxed">
               {description}
             </p>
           )}

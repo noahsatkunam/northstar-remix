@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Wrench, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronRight, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useContactModal } from "@/components/ContactModal";
 import { cn } from "@/lib/utils";
@@ -55,100 +55,96 @@ export function Header() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "py-2" : "py-3"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          isScrolled ? "py-2" : "py-4"
         )}
       >
         <div className={cn(
-          "container mx-auto px-4 transition-all duration-300",
+          "container mx-auto px-4 transition-all duration-500",
           isScrolled ? "max-w-6xl" : ""
         )}>
           <div className={cn(
-            "flex items-center justify-between rounded-full px-6 py-3 transition-all duration-300",
-            isScrolled 
-              ? "bg-background/80 backdrop-blur-xl border border-border/50 shadow-lg" 
+            "flex items-center justify-between px-5 py-2.5 transition-all duration-500",
+            isScrolled
+              ? "rounded-2xl bg-background/70 backdrop-blur-2xl border border-border/50 shadow-xl shadow-black/10"
               : "bg-transparent"
           )}>
-            {/* Logo */}
             <Link to="/" className="flex items-center group relative z-50">
               <img
-                src="/logos/northstar-logo.png"
+                src="/logos/northstar-logo-white.png"
                 alt="NorthStar Technology Group"
-                className="h-14 w-auto transition-all duration-300 group-hover:scale-[1.03]"
+                className="h-10 w-auto transition-all duration-300 group-hover:opacity-80"
               />
             </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-0.5">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "px-4 py-2 text-sm font-medium rounded-full transition-all duration-200",
-                    item.isTool 
-                      ? "bg-primary/10 text-primary hover:bg-primary/20"
+                    "relative px-3.5 py-2 text-[13px] font-medium tracking-wide transition-all duration-200 rounded-lg",
+                    item.isTool
+                      ? "text-accent hover:text-accent/80 flex items-center gap-1.5"
                       : isActive(item.href)
-                        ? "bg-muted text-foreground"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        ? "text-foreground bg-white/[0.06]"
+                        : "text-muted-foreground hover:text-foreground"
                   )}
                 >
-                  <span className="flex items-center gap-2">
-                    {item.isTool && <Wrench className="w-3 h-3" />}
-                    {item.name}
-                  </span>
+                  {item.isTool && <Shield className="w-3 h-3" />}
+                  {item.name}
                 </Link>
               ))}
             </nav>
 
-            {/* CTA & Mobile Toggle */}
-            <div className="flex items-center gap-4">
-              <Button 
+            <div className="flex items-center gap-3">
+              <Button
                 onClick={openModal}
-                className={cn(
-                  "hidden lg:flex rounded-full px-6 shadow-lg hover:shadow-primary/25 transition-all hover:scale-105",
-                  isScrolled ? "bg-primary text-white" : "bg-primary text-white"
-                )}
+                className="hidden lg:flex h-9 rounded-lg px-5 text-[13px] font-semibold bg-primary hover:bg-primary/90 text-white transition-all duration-200"
               >
                 Contact Us
               </Button>
 
               <button
-                className="lg:hidden relative z-50 p-2 text-foreground"
+                className="lg:hidden relative z-50 p-2 text-foreground hover:text-primary transition-colors"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               >
-                {mobileMenuOpen ? <X /> : <Menu />}
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
         </div>
       </motion.header>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-3xl flex flex-col justify-center px-8"
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-background/98 backdrop-blur-3xl flex flex-col justify-center px-8"
           >
-            <nav className="flex flex-col gap-6">
+            <nav className="flex flex-col gap-2">
               {navigation.map((item, i) => (
                 <motion.div
                   key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: i * 0.06, duration: 0.4, ease: "easeOut" }}
                 >
                   <Link
                     to={item.href}
-                    className="text-4xl font-bold tracking-tight text-foreground hover:text-primary transition-colors flex items-center justify-between group"
+                    className={cn(
+                      "text-3xl sm:text-4xl font-bold tracking-tight transition-colors flex items-center justify-between group py-3",
+                      isActive(item.href) ? "text-primary" : "text-foreground hover:text-primary"
+                    )}
                   >
                     {item.name}
-                    <ChevronRight className="w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ChevronRight className="w-6 h-6 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                   </Link>
                 </motion.div>
               ))}
@@ -156,9 +152,13 @@ export function Header() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="mt-8"
+                className="mt-8 pt-8 border-t border-border"
               >
-                <Button size="lg" className="w-full text-xl h-16 rounded-2xl" onClick={openModal}>
+                <Button
+                  size="lg"
+                  className="w-full text-lg h-14 rounded-xl bg-primary hover:bg-primary/90"
+                  onClick={() => { setMobileMenuOpen(false); openModal(); }}
+                >
                   Contact Us
                 </Button>
               </motion.div>

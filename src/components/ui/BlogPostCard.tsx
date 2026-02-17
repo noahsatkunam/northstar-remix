@@ -54,7 +54,7 @@ const BlogPostCard = React.forwardRef<HTMLElement, BlogPostCardProps>(
         {/* Content */}
         <div className="p-6">
           {/* Category badge */}
-          <span className="inline-block bg-primary/10 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider text-primary">
+          <span className="inline-block bg-primary/10 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-primary rounded-md">
             {category}
           </span>
 
@@ -78,8 +78,8 @@ const BlogPostCard = React.forwardRef<HTMLElement, BlogPostCardProps>(
     );
 
     const cardClasses = cn(
-      "group border border-border bg-card transition-all duration-DEFAULT",
-      "hover:border-primary hover:shadow-md",
+      "group overflow-hidden border border-border/50 bg-card transition-all duration-300 rounded-2xl",
+      "hover:border-primary/30",
       className
     );
 
