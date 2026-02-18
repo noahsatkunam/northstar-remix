@@ -13,7 +13,7 @@ interface Post {
   author: string;
 }
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API = import.meta.env.VITE_BACKEND_URL || "https://northstar-backend-frnb.onrender.com";
 
 export default function AdminDashboard() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -107,7 +107,7 @@ export default function AdminDashboard() {
                   <td className="py-3 px-4 text-sm text-muted-foreground">{post.category}</td>
                   <td className="py-3 px-4 text-sm text-muted-foreground">{post.author}</td>
                   <td className="py-3 px-4 text-sm text-muted-foreground">
-                    {post.updatedAt ? new Date(post.updatedAt).toLocaleDateString() : "N/A"}
+                    {post.updatedAt ? new Date(post.updatedAt).toLocaleDateString() : "-"}
                   </td>
                   <td className="py-3 px-4 text-right">
                     <div className="flex items-center justify-end gap-1">

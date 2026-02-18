@@ -13,7 +13,7 @@ interface Webinar {
   updatedAt: string;
 }
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API = import.meta.env.VITE_BACKEND_URL || "https://northstar-backend-frnb.onrender.com";
 
 export default function AdminWebinarDashboard() {
   const [webinars, setWebinars] = useState<Webinar[]>([]);
@@ -127,11 +127,11 @@ export default function AdminWebinarDashboard() {
                     </span>
                   </td>
                   <td className="py-3 px-4 text-sm text-muted-foreground">
-                    {webinar.date ? new Date(webinar.date).toLocaleDateString() : "N/A"}
+                    {webinar.date ? new Date(webinar.date).toLocaleDateString() : "-"}
                   </td>
-                  <td className="py-3 px-4 text-sm text-muted-foreground">{webinar.duration || "N/A"}</td>
+                  <td className="py-3 px-4 text-sm text-muted-foreground">{webinar.duration || "-"}</td>
                   <td className="py-3 px-4 text-sm text-muted-foreground">
-                    {webinar.updatedAt ? new Date(webinar.updatedAt).toLocaleDateString() : "N/A"}
+                    {webinar.updatedAt ? new Date(webinar.updatedAt).toLocaleDateString() : "-"}
                   </td>
                   <td className="py-3 px-4 text-right">
                     <div className="flex items-center justify-end gap-1">

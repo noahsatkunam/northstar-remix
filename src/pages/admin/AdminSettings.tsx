@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import { Save, Eye, X } from "lucide-react";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API = import.meta.env.VITE_BACKEND_URL || "https://northstar-backend-frnb.onrender.com";
 
 interface SiteSettings {
   banner: {

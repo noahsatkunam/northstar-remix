@@ -9,7 +9,7 @@ import TagInput from "./components/TagInput";
 import AISeoAssist from "./components/AISeoAssist";
 import { Save, Eye, EyeOff, ArrowLeft, Loader2 } from "lucide-react";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API = import.meta.env.VITE_BACKEND_URL || "https://northstar-backend-frnb.onrender.com";
 
 export default function AdminPostEditor() {
   const { slug: editSlug } = useParams();
